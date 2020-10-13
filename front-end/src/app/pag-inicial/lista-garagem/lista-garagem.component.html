@@ -1,0 +1,121 @@
+<div>
+  <div class="row">
+    <div class="col-3">
+      <button
+        type="button"
+        class="btn btn-primary button"
+        (click)="exibirCadastraGaragem()"
+      >
+        Nova garagem
+      </button>
+    </div>
+    <div class="col-4">
+      <label for="buscarGaragem"><h5>Buscar garagem por nome:</h5></label>
+    </div>
+    <div class="col-3">
+      <input
+        type="text"
+        class="form-control"
+        id="buscarGaragem"
+        placeholder="Nome"
+        [(ngModel)]="nome"
+        #Pesquisa
+        (keyup)="pesquisa(Pesquisa.value)"
+      />
+    </div>
+    <div class="col-2">
+      <button
+        type="button"
+        class="btn btn-primary"
+        (click)="buscarGaragemPorNome()"
+      >
+        Buscar
+      </button>
+    </div>
+  </div>
+  <table class="table">
+    <thead class="thead-dark">
+      <tr>
+        <th scope="col">Nome</th>
+        <th scope="col">Horario Inicio</th>
+        <th scope="col">Horario Fim</th>
+        <th scope="col">Estado:</th>
+        <th scope="col">Garagem</th>
+        <th scope="col">Deletar</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let garagem of garagems">
+        <td>{{ garagem.nome }}</td>
+        <td>{{ garagem.tempoinicio }}</td>
+        <td>{{ garagem.tempofim }}</td>
+        <td>{{ garagem.endereco.estado }}</td>
+
+        <td>
+          <button
+            type="submit"
+            class="btn btn-primary"
+            [routerLink]="['/garagem', garagem.id]"
+          >
+            Ver garagem
+          </button>
+        </td>
+        <td>
+          <button
+            type="button"
+            class="btn btn-danger"
+            data-toggle="modal"
+            data-target="#confirmacaoModal"
+            (click)="setIdForDelete(garagem.id)"
+          >
+            Excluir
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<!--MODAL PARA EXCLUIR GARAGEM-->
+<div
+  class="modal fade"
+  id="confirmacaoModal"
+  tabindex="-1"
+  role="dialog"
+  aria-labelledby="confirmacaoModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="confirmacaoModalLabel">Exclusão</h5>
+        <button
+          type="button"
+          class="close"
+          data-dismiss="modal"
+          aria-label="Close"
+        >
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <h3>Deseja realmente excluir está garagem?</h3>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">
+          Não
+        </button>
+        <button
+          type="button"
+          class="btn btn-primary"
+          (click)="deleteById(idfordelete)"
+        >
+          Sim
+        </button>
+        <div *ngIf="vazio; else null" class="alert alert-danger">
+          Não é possível excluir uma garagem que tenha carros alocado.
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

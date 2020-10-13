@@ -1,0 +1,123 @@
+<div class="card">
+  <div class="card-header text-center">
+    Cadastro nova garagem
+  </div>
+  <div class="card-body">
+    <h5 class="card-title text-center">Insira os dados:</h5>
+
+    <form [formGroup]="cadastroForm">
+      <div class="row">
+        <div class="form-group col-6">
+          <label>Nome</label>
+          <input
+            type="text"
+            class="form-control"
+            placeholder="Nome"
+            formControlName="nome"
+          />
+        </div>
+
+        <div class="form-group col-2">
+          <label>Horario de inicio </label>
+          <input
+            type="time"
+            class="form-control"
+            placeholder="Inicio"
+            formControlName="tempoinicio"
+          />
+        </div>
+
+        <div class="form-group col-2">
+          <label>Horario final</label>
+          <input
+            type="time"
+            class="form-control"
+            placeholder="Fim"
+            formControlName="tempofim"
+          />
+        </div>
+      </div>
+      <div [formGroup]="endereco">
+        <div class="row">
+          <div class="form-group col-4">
+            <label>Estado:</label>
+            <input
+              type="text"
+              class="form-control"
+              placeholder="Estado"
+              formControlName="estado"
+            />
+          </div>
+          <div class="form-group col-4">
+            <label>Cidade:</label>
+            <input
+              type="text"
+              class="form-control"
+              placeholder="Cidade"
+              formControlName="cidade"
+            />
+          </div>
+          <div class="form-group col-3">
+            <label>Cep:</label>
+            <input
+              type="number"
+              class="form-control"
+              placeholder="Cep"
+              formControlName="cep"
+            />
+          </div>
+        </div>
+        <div class="row">
+          <div class="form-group col-3">
+            <label>Rua:</label>
+            <input
+              type="text"
+              class="form-control"
+              placeholder="Rua"
+              formControlName="rua"
+            />
+          </div>
+          <div class="form-group col-3">
+            <label>Numero</label>
+            <input
+              type="text"
+              class="form-control"
+              placeholder="Numero"
+              formControlName="numero"
+            />
+          </div>
+          <div class="form-group col-3">
+            <label>Complemento</label>
+            <input
+              type="text"
+              class="form-control"
+              placeholder="Complemento"
+              formControlName="complemento"
+            />
+          </div>
+        </div>
+      </div>
+    </form>
+    <button
+      type="button"
+      class="btn btn-success col-2"
+      (click)="efetuarRegistro()"
+    >
+      Salvar
+    </button>
+
+    <button
+      type="button"
+      class="btn btn-secondary"
+      (click)="exibirListaGaragem()"
+    >
+      Cancelar
+    </button>
+  </div>
+  <div *ngIf="vazio; else null" class="alert alert-danger">
+    Nescessario informar todos os dados
+  </div>
+  <div class="card-footer text-muted text-center">
+    Direitos autorais reservados
+  </div>
+</div>

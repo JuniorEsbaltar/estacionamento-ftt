@@ -1,0 +1,178 @@
+<div class="row">
+  <div class="col-2 d-flex"></div>
+</div>
+
+<div class="container-fluid col-10 sty">
+  <button
+    type="button"
+    class="btn btn-info"
+    data-toggle="modal"
+    data-target="#localizacaoModal"
+    (click)="populaModal()"
+  >
+    Informação Garagem
+  </button>
+  <div class="title card">
+    <h2>Garagem: {{ garagem?.nome }}</h2>
+  </div>
+
+  <div *ngIf="cadastra; else formList">
+    <app-cadastra-carro (novoCarro)="novoCarro($event)"></app-cadastra-carro>
+  </div>
+
+  <ng-template #formList>
+    <app-lista-carros (novoCarro)="novoCarro($event)"></app-lista-carros>
+  </ng-template>
+</div>
+
+<!--MODAL VER/ALTERAR INFORMAÇÃO GARAGEM -->
+
+<div
+  class="modal fade"
+  id="localizacaoModal"
+  tabindex="-1"
+  role="dialog"
+  aria-labelledby="localizacaoModal"
+  aria-hidden="true"
+>
+  <div class="modal-dialog modal-xl" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="localizacaoModal">
+          Localização:
+        </h5>
+        <button
+          type="button"
+          class="close"
+          data-dismiss="modal"
+          aria-label="Close"
+        >
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form [formGroup]="cadastroForm">
+          <div class="row">
+            <div class="form-group col-6">
+              <label>Nome</label>
+              <input
+                type="text"
+                class="form-control"
+                placeholder="Nome"
+                formControlName="nome"
+              />
+            </div>
+
+            <div class="form-group col-2">
+              <label>Inicio:</label>
+              <input
+                type="time"
+                class="form-control"
+                placeholder="Inicio"
+                formControlName="tempoinicio"
+              />
+            </div>
+
+            <div class="form-group col-2">
+              <label>Fim</label>
+              <input
+                type="time"
+                class="form-control"
+                placeholder="Fim"
+                formControlName="tempofim"
+              />
+            </div>
+          </div>
+          <div [formGroup]="endereco">
+            <div class="row">
+              <div class="form-group col-4">
+                <label>Estado:</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  placeholder="Estado"
+                  formControlName="estado"
+                />
+              </div>
+              <div class="form-group col-4">
+                <label>Cidade:</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  placeholder="Cidade"
+                  formControlName="cidade"
+                />
+              </div>
+              <div class="form-group col-3">
+                <label>Cep:</label>
+                <input
+                  type="number"
+                  class="form-control"
+                  placeholder="Cep"
+                  formControlName="cep"
+                />
+              </div>
+            </div>
+            <div class="row">
+              <div class="form-group col-3">
+                <label>Rua:</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  placeholder="Rua"
+                  formControlName="rua"
+                />
+              </div>
+              <div class="form-group col-3">
+                <label>Numero</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  placeholder="Numero"
+                  formControlName="numero"
+                />
+              </div>
+              <div class="form-group col-3">
+                <label>Complemento</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  placeholder="Complemento"
+                  formControlName="complemento"
+                />
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <div class="custom-control custom-switch">
+          <input
+            type="checkbox"
+            class="custom-control-input"
+            id="customSwitch1"
+            (click)="enableGroup()"
+          />
+          <label class="custom-control-label" for="customSwitch1"
+            >Alterar dados</label
+          >
+        </div>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">
+          Fechar
+        </button>
+        <button
+          type="button"
+          class="btn btn-success"
+          id="buttondisable"
+          [disabled]="!editmode ? 'disabled' : null"
+          (click)="alterarDados()"
+        >
+          Salvar alteração
+        </button>
+      </div>
+      <div *ngIf="vazio; else null" class="alert alert-danger">
+        Nescessario informar todos os dados
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,15 @@
+.container-fluid {
+  margin-top: 50px;
+  border: black;
+  border-radius: 20px;
+  border: solid;
+  padding-bottom: 40px;
+  background-color: whitesmoke;
+}
+.title {
+  text-align: center;
+  margin-top: 50px;
+}
+.d-flex {
+  margin-top: 5px;
+}

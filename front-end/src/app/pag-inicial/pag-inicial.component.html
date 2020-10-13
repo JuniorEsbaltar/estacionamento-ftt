@@ -1,0 +1,13 @@
+<div class="container">
+  <div class="jumbotron barcont">
+    <div *ngIf="cadastro; else formList">
+      <app-cadastrar (exibirLista)="exibirLista($event)"></app-cadastrar>
+    </div>
+
+    <ng-template #formList>
+      <app-lista-garagem
+        (exibirLista)="exibirLista($event)"
+      ></app-lista-garagem>
+    </ng-template>
+  </div>
+</div>

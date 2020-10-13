@@ -1,0 +1,236 @@
+<button type="button" class="btn btn-primary" (click)="cadastrar()">
+  Novo Carro
+</button>
+<div class="text-right">
+  <pagination-controls
+    (pageChange)="pag = $event"
+    previousLabel="Anterior"
+    nextLabel="Próximo"
+  ></pagination-controls>
+</div>
+<div class="row">
+  <div
+    *ngFor="
+      let carro of garagem?.carro
+        | paginate: { itemsPerPage: contador, currentPage: pag }
+    "
+    class="col-3"
+  >
+    <div class="card" style="width: 20rem; margin: 20px;">
+      <div class="centerpage">
+        <img src="../../../assets/fusca.png" class="card-img-top" alt="..." />
+
+        <b>Sobre:</b>
+      </div>
+      <div class="container-fluid">
+        <a>{{ carro.descricao }}</a>
+      </div>
+      <div class="card-body">
+        <h5 class="card-title"></h5>
+        <p class="card-text"></p>
+      </div>
+      <ul class="list-group list-group-flush">
+        <li class="list-group-item"></li>
+        <li class="list-group-item"><b>Modelo:</b> {{ carro.modelo }}</li>
+        <li class="list-group-item">
+          <b>Quilometragem:</b> {{ carro.quilometragem }} KM
+        </li>
+        <li class="list-group-item">
+          <b>Fabricado:</b> {{ carro.anodefabricacao }}
+        </li>
+        <li class="list-group-item"><b>Valor:</b> {{ carro.valor }} R$</li>
+        <li class="list-group-item"><b>Cor:</b> {{ carro.cor }}</li>
+        <li class="list-group-item"><b>Placa:</b> {{ carro.placa }}</li>
+      </ul>
+      <div class="card-body">
+        <button
+          type="button"
+          class="btn btn-outline-warning"
+          style="margin-right: 70px;"
+          data-toggle="modal"
+          data-target="#AlterarCarro"
+          (click)="buscarCarroPeloid(carro.id)"
+        >
+          Alterar
+        </button>
+        <button
+          type="button"
+          class="btn btn-outline-danger"
+          data-toggle="modal"
+          data-target="#confirmacaoModal"
+          (click)="carroIdDelete(carro.id)"
+        >
+          Excluir
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="text-right">
+  <pagination-controls
+    (pageChange)="pag = $event"
+    previousLabel="Anterior"
+    nextLabel="Próximo"
+  ></pagination-controls>
+</div>
+
+<!--Modal Alterar Carro-->
+
+<div
+  class="modal fade"
+  id="AlterarCarro"
+  data-backdrop="static"
+  tabindex="-1"
+  role="dialog"
+  aria-labelledby="AlterarCarroLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="AlterarCarroLabel">Alterar Carro</h5>
+        <button
+          type="button"
+          class="close"
+          data-dismiss="modal"
+          aria-label="Close"
+        >
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="card">
+          <div class="card-body">
+            <form [formGroup]="carroForm">
+              <div class="row">
+                <label class="col-2"><b>Modelo</b></label>
+                <div class="form-group col-3">
+                  <input
+                    type="text"
+                    class="form-control"
+                    formControlName="modelo"
+                  />
+                </div>
+
+                <label><b>Quilometragem</b></label>
+                <div class="form-group col-3">
+                  <input
+                    type="text"
+                    class="form-control"
+                    formControlName="quilometragem"
+                  />
+                </div>
+              </div>
+
+              <div class="row">
+                <label class="col-2"><b>Placa</b></label>
+                <div class="form-group col-3">
+                  <input
+                    type="text"
+                    class="form-control"
+                    formControlName="placa"
+                  />
+                </div>
+
+                <label><b>Cor</b></label>
+                <div class="form-group col-3" style="margin-left: 85px;">
+                  <input
+                    type="text"
+                    class="form-control"
+                    formControlName="cor"
+                  />
+                </div>
+              </div>
+
+              <div class="row">
+                <label class="col-2"><b>Valor</b></label>
+                <div class="form-group col-3">
+                  <input
+                    type="text"
+                    class="form-control"
+                    formControlName="valor"
+                  />
+                </div>
+                <label class="col-2"><b>Fabricado</b></label>
+                <div class="form-group" style="margin-right: 10px;">
+                  <input
+                    type="date"
+                    class="form-control"
+                    formControlName="anodefabricacao"
+                  />
+                </div>
+              </div>
+
+              <div class="row">
+                <label for="Descricao" class="col-sm-2 form-label"
+                  ><b>Descrição</b></label
+                >
+                <div class="form-group col-6">
+                  <textarea
+                    class="form-control"
+                    id="descricao"
+                    rows="3"
+                    formControlName="descricao"
+                  ></textarea>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+        <div *ngIf="vazio; else null" class="alert alert-danger">
+          Nescessario informar todos os dados
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">
+          Close
+        </button>
+        <button type="button" class="btn btn-success" (click)="alterarDados()">
+          Salvar Alteração
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!--MODAL EXCLUIR CARRO-->
+
+<div
+  class="modal fade"
+  id="confirmacaoModal"
+  tabindex="-1"
+  role="dialog"
+  aria-labelledby="confirmacaoModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="confirmacaoModalLabel">Exclusão</h5>
+        <button
+          type="button"
+          class="close"
+          data-dismiss="modal"
+          aria-label="Close"
+        >
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <h3>Deseja realmente excluir este Carro?</h3>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">
+          Não
+        </button>
+        <button
+          type="button"
+          class="btn btn-primary"
+          (click)="deleteById(idfordelete)"
+        >
+          Sim
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

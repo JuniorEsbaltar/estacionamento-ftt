@@ -1,0 +1,111 @@
+<div class="conte">
+  <form [formGroup]="carroForm">
+    <div class="row">
+      <label for="placa" class="col-sm-1 form-label">Placa</label>
+      <div class="col-sm-2 form-group">
+        <input
+          type="text"
+          class="form-control"
+          id="placa"
+          placeholder="Placa"
+          formControlName="placa"
+        />
+      </div>
+
+      <label for="quilometragem" class="col-sm-1 form-label"
+        >Quilometragem</label
+      >
+      <div class="col-sm-1 form-group">
+        <input
+          type="number"
+          class="form-control"
+          id="quilometragem"
+          placeholder="KM"
+          formControlName="quilometragem"
+        />
+      </div>
+      <div class="col-sm-1 form-group">
+        <div class="form-group">
+          <fieldset disabled>
+            <div class="form-group">
+              <input type="text" class="form-control" placeholder="KM" />
+            </div>
+          </fieldset>
+        </div>
+      </div>
+
+      <label for="fabricacao" class="col-sm-1 form-label">
+        Ano de Fabricação</label
+      >
+      <div class="col-sm-3">
+        <input
+          type="date"
+          class="form-control"
+          id="fabricacao"
+          formControlName="anodefabricacao"
+        />
+      </div>
+    </div>
+
+    <div class="row">
+      <label for="Modelo" class="col-sm-1 form-label"> Modelo</label>
+      <div class="col-sm-2 form-group">
+        <input
+          type="text"
+          class="form-control"
+          id="modelo"
+          placeholder="Modelo"
+          formControlName="modelo"
+        />
+      </div>
+
+      <label for="cor" class="col-sm-1 form-label">Cor</label>
+      <div class="col-sm-2 form-group">
+        <input
+          type="text"
+          class="form-control"
+          id="cor"
+          placeholder="Cor"
+          formControlName="cor"
+        />
+      </div>
+
+      <label for="cor" class="col-sm-1 form-label">Valor</label>
+      <div class="col-sm-2 form-group">
+        <input
+          type="number"
+          class="form-control"
+          id="valor"
+          placeholder="Valor"
+          formControlName="valor"
+        />
+      </div>
+    </div>
+    <div class="row">
+      <label for="Descricao" class="col-sm-1 form-label">Descricao</label>
+      <div class="form-group col-6">
+        <textarea
+          class="form-control"
+          id="descricao"
+          rows="3"
+          placeholder="Descrição"
+          formControlName="descricao"
+          data-ls-module="charCounter"
+          maxlength="100"
+        ></textarea>
+        <span class="ls-label-text-prefix ls-ico-user"></span>
+      </div>
+    </div>
+  </form>
+  <div class="row d-flex justify-content-end">
+    <button type="button" class="btn btn-success" (click)="cadastrarCarro()">
+      Cadastrar
+    </button>
+    <button type="button" class="btn btn-secondary" (click)="voltarPagina()">
+      Cancelar
+    </button>
+  </div>
+  <div *ngIf="vazio; else null" class="alert alert-danger">
+    Nescessario informar todos os dados
+  </div>
+</div>
